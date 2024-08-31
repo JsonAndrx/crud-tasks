@@ -1,10 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import LoginComp from './components/Login/LoginComp';
+import TasksList from './components/Tasks/TaskListComp';
 import { login } from './services/authService';
 
 function App() {
-  const [token, setToken] = useState(null);
+  const [token, setToken] = useState(localStorage.getItem('token'));
+
+  useEffect(() => {
+    if (token) {
+      localStorage.setItem('token', token);
+    } else {
+      localStorage.removeItem('token');
+    }
+  }, [token]);
 
   const handleLogin = async (credentials) => {
     try {
@@ -22,7 +31,7 @@ function App() {
         {!token ? (
           <LoginComp onLogin={handleLogin} />
         ) : (
-          <p>Logged in with token: {token}</p>
+          <TasksList token={token} />
         )}
       </main>
     </div>

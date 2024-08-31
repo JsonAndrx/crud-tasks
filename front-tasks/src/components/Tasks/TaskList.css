@@ -1,0 +1,34 @@
+.tasks-list {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .tasks-list h2 {
+    text-align: center;
+  }
+  
+  .tasks-list table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .tasks-list th,
+  .tasks-list td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .tasks-list th {
+    background-color: #f4f4f4;
+  }
+  
+  .error-message {
+    color: red;
+    text-align: center;
+  }
