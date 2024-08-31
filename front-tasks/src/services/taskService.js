@@ -41,3 +41,19 @@ export const deleteTask = async (id, token) => {
   }
   return true;
 };
+
+export const createTask = async (task, token) => {
+  const response = await fetch('http://localhost:8000/api/tasks', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body: JSON.stringify(task),
+  });
+  console.log(response)
+  if (!response.ok) {
+    throw new Error('Failed to create task');
+  }
+  return true; // Extraer la tarea creada del campo 'data'
+};

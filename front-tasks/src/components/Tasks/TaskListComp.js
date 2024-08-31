@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { getTasks, deleteTask } from '../../services/taskService';
 import './TaskList.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useTaskContext } from '../../context/TaskContext';
 
 function TasksList({ token }) {
-  const [tasks, setTasks] = useState([]);
+  const { tasks, setTasks } = useTaskContext();
   const [error, setError] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -18,7 +20,7 @@ function TasksList({ token }) {
     };
 
     fetchTasks();
-  }, [token]);
+  }, [token, setTasks]);
 
   const handleDelete = async (id) => {
     try {
@@ -54,14 +56,17 @@ function TasksList({ token }) {
               <td>{new Date(task.updated_at).toLocaleString()}</td>
               <td>
                 <Link to={`/tasks/${task.id}`}>
-                  <button>Ver</button>
+                  <button>View</button>
                 </Link>
-                <button className="delete-button" onClick={() => handleDelete(task.id)}>Eliminar</button>
+                <button className="delete-button" onClick={() => handleDelete(task.id)}>Delete</button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      <button onClick={() => navigate('/create-task')}>
+        Create Task
+      </button>
     </div>
   );
 }
