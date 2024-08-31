@@ -51,9 +51,26 @@ export const createTask = async (task, token) => {
     },
     body: JSON.stringify(task),
   });
-  console.log(response)
   if (!response.ok) {
     throw new Error('Failed to create task');
   }
   return true; // Extraer la tarea creada del campo 'data'
+};
+
+export const updateTask = async (id, task, token) => {
+  const response = await fetch(`http://localhost:8000/api/tasks/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    },
+    body: JSON.stringify(task)
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to update task');
+  }
+
+  const updatedTask = await response.json();
+  return updatedTask.data; // Asegúrate de que 'data' contiene la tarea actualizada
 };

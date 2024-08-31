@@ -59,6 +59,7 @@ function TasksList({ token }) {
                   <button>View</button>
                 </Link>
                 <button className="delete-button" onClick={() => handleDelete(task.id)}>Delete</button>
+                <button className="edit-button" onClick={() => navigate(`/edit-task/${task.id}`)}>Edit</button> {/* Botón de editar */}
               </td>
             </tr>
           ))}

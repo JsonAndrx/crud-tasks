@@ -55,7 +55,7 @@ function CreateTask({ token, onTaskCreated }) {
             required
           >
             <option value="pending">Pending</option>
-            <option value="complete">Complete</option>
+            <option value="completed">Complete</option>
           </select>
         </div>
         <button type="submit">Create</button>

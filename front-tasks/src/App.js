@@ -3,8 +3,9 @@ import './App.css';
 import LoginComp from './components/Login/LoginComp';
 import TasksList from './components/Tasks/TaskListComp';
 import TaskDetail from './components/Tasks/TaskDetail';
-import { login } from './services/authService';
 import CreateTaskView from './components/Tasks/CreateTaskView';
+import EditTaskView from './components/Tasks/EditTaskView'; // Importa el nuevo componente
+import { login } from './services/authService';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { TaskProvider } from './context/TaskContext';
 
@@ -23,7 +24,6 @@ function App() {
     try {
       const token = await login(credentials);
       setToken(token);
-      console.log('Token:', token);
     } catch (error) {
       throw new Error('Login failed');
     }
@@ -39,6 +39,7 @@ function App() {
               <Route path="/tasks" element={token ? <TasksList token={token} /> : <Navigate to="/" />} />
               <Route path="/tasks/:id" element={token ? <TaskDetail token={token} /> : <Navigate to="/" />} />
               <Route path="/create-task" element={token ? <CreateTaskView token={token} /> : <Navigate to="/" />} />
+              <Route path="/edit-task/:id" element={token ? <EditTaskView token={token} /> : <Navigate to="/" />} /> {/* Nueva ruta */}
             </Routes>
           </main>
         </div>
