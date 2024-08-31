@@ -1,23 +1,30 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import LoginComp from './components/Login/LoginComp';
+import { login } from './services/authService';
 
 function App() {
+  const [token, setToken] = useState(null);
+
+  const handleLogin = async (credentials) => {
+    try {
+      const token = await login(credentials);
+      setToken(token);
+      console.log('Token:', token);
+    } catch (error) {
+      throw new Error('Login failed');
+    }
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <main>
+        {!token ? (
+          <LoginComp onLogin={handleLogin} />
+        ) : (
+          <p>Logged in with token: {token}</p>
+        )}
+      </main>
     </div>
   );
 }
