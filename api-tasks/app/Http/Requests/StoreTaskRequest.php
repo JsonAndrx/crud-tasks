@@ -23,8 +23,21 @@ class StoreTaskRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
-            'description' => 'nullable|string',
+            'description' => 'required|string',
             'status' => 'required|in:pending,completed',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'title.required' => 'Title is required',
+            'title.string' => 'Title must be a string',
+            'title.max' => 'Title must not exceed 255 characters',
+            'description.required' => 'Description is required',
+            'description.string' => 'Description must be a string',
+            'status.required' => 'Status is required',
+            'status.in' => 'Status must be either pending or completed',
         ];
     }
 }

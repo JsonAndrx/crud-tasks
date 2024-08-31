@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreTaskRequest;
 use App\Repositories\TaskRepository;
 use App\Helpers\ApiResponse;
-use GuzzleHttp\Psr7\Response;
 
 class TaskController extends Controller
 {
@@ -28,15 +27,9 @@ class TaskController extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function store(StoreTaskRequest $request)
     {
         try {
-            $request->validate([
-                'title' => 'required|string|max:255',
-                'description' => 'required|string',
-                'status' => 'required|in:pending,completed',
-            ]);
-
             $task = $this->taskRepository->create($request->all());
             return ApiResponse::succes_response('Task created successfully', $task, 201);
         } catch (\Exception $e) {
